@@ -16,7 +16,12 @@ metadata:
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: theia-basic-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Eclipse Theia'
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  tls:
+  - hosts:
+    - theia.localdomain
+    secretName: theia-prod
   ingressClassName: nginx
   rules:
   - host: theia.localdomain
