@@ -12,17 +12,22 @@ kind: Ingress
 metadata:
   name: theia-next
   namespace: theia
+  labels:
+    # role: theia-next
+    app: theia-next
+  # annotations:
+  #   nginx.ingress.kubernetes.io/auth-type: basic
+  #   nginx.ingress.kubernetes.io/auth-secret: theia-basic-auth
+  #   nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Eclipse Theia'
+  #   cert-manager.io/cluster-issuer: letsencrypt-prod
   annotations:
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: theia-basic-auth
-    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Eclipse Theia'
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: "traefik"
 spec:
-  tls:
-  - hosts:
-    - theia.localdomain
-    secretName: theia-prod
-  ingressClassName: nginx
+  # tls:
+  # - hosts:
+  #   - theia.localdomain
+  #   secretName: theia-prod
+  # ingressClassName: nginx
   rules:
   - host: theia.localdomain
     http:
@@ -66,6 +71,7 @@ spec:
     spec:
       containers:
       - image: francoisvans/theia-docker-test
+      # - image: theiaide/theia:latest
         imagePullPolicy: Always
         name: theia-next
         ports:
