@@ -12,6 +12,10 @@ kind: Ingress
 metadata:
   name: theia-next
   namespace: theia
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: theia-basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Eclipse Theia'
 spec:
   ingressClassName: nginx
   rules:
